@@ -10,6 +10,8 @@
   "scripts": {
     "start": "node index.js"
   },
-  "homepage": "https://app.herokuapp.com/"
+  "engines": {
+    "node": "16.6"
+  }
 }
 
