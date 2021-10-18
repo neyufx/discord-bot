@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "node index.js"
-}
+  },
+  "homepage": "https://app.herokuapp.com/"
 }
 
