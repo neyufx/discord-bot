@@ -122,4 +122,4 @@ bot.on('messageCreate', message => {
 bot.on('error', console.error);
 
 /* Connecte le bot avec le token fourni en paramètre */
-bot.login('token');
+bot.login(process.env.BOT_TOKEN);
