@@ -3,12 +3,12 @@ require('dotenv').config();
 
     var pool = mysql.createPool({
         connectionLimit: 10,
-        host: '153.92.220.151',
-        user: 'u463335117_brasserie',
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
         host: 3306,
-        password: 'Neyufx99&',
-        database: 'u463335117_brasserie'
-    });
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME
+    })
     pool.getConnection(function(err, connection) {
         if (err) throw err;
         connection.release();
