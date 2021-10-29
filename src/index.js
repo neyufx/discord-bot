@@ -4,6 +4,7 @@ const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MES
 const config = require('./config.json');
 const path = require('path');
 const db = require('../database/db.js');
+const { channel } = require('diagnostics_channel');
 const prefix = "!";
 
 
@@ -31,7 +32,7 @@ bot.on('messageCreate', message => {
 
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
-    const gerantRole = message.member.roles.cache.some(role => role.name === 'Gérants');
+    const gerantRole = message.member.roles.cache.some(role => role.name === 'Gérants');// rôle
     /* Si la commande user */
     if(gerantRole){
     if(command === 'user'){ // Commande !user <nomrp> <nomsteam> @taguser
@@ -45,23 +46,72 @@ bot.on('messageCreate', message => {
     }else if (command === 'kilo'){
         let arg1 = args[0];
         if (arg1){
+            if(arg1 < 1000 && arg1 > -100){
             bot.commands.get('kilo').execute(message,args);
             db.pool.getConnection(function(err, connection) {
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = today.getFullYear();
+                today = yyyy + '/' + mm + '/' + dd;
                 // Use the connection
-                connection.query(`insert into kilos(quantite,dossier) values("${arg1}","${message.channel.id}")`, function (error, results, fields) {
+                connection.query(`SELECT id FROM employees WHERE nomDossier = "${message.channel.name}"`, function(error, result,field) {      
+                connection.query(`insert into dossiers(numero,quantite,nom,date,employee_id) values("${message.channel.id}","${arg1}","${message.channel.name}","${today}","${result[0]['id']}")`, function (error, results, fields) {
                 // When done with the connection, release it.
                 connection.release();
                 // Handle error after the release.
                 if (error) throw error;
                 // Don't use the connection here, it has been returned to the pool.
                 });
+                });
               });
+            }
+            else{
+                message.channel.send('Quantité de kilos trop élevé !')
+            }
         }
     }else if (command === 'vire'){
-        const Discord = require("discord.js")
-
+        const Discord = require("discord.js");
         bot.commands.get('vire').execute(message,args);
         message.channel.send("https://cdn.discordapp.com/attachments/899310160672067586/899310182075609108/vire.gif");
+        var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = today.getFullYear();
+                today = yyyy + '/' + mm + '/' + dd;
+                db.pool.getConnection(function(err, connection) {
+                    var today = new Date();
+                    var dd = String(today.getDate()).padStart(2, '0');
+                    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                    var yyyy = today.getFullYear();
+                    today = yyyy + '/' + mm + '/' + dd;
+                    // Use the connection     
+                    connection.query(`UPDATE employees SET isViree = "${today}" WHERE nomDossier = "${message.channel.name}"`, function (error, results, fields) {
+                    // When done with the connection, release it.
+                    connection.release();
+                    // Handle error after the release.
+                    if (error) throw error;
+                    // Don't use the connection here, it has been returned to the pool.
+                    });
+        });
+    }
+    else if (command === 'semaine')
+    {
+        const Discord = require("discord.js");
+        bot.commands.get('semaine').execute(message,args);
+        const channel = bot.channels.cache.get('898683278775713823'); // id catégorie
+        console.log(channel.children.forEach(e => {
+            if(e.name !== undefined)
+            {
+                const channel01 = bot.channels.cache.get(e.id);
+                channel01.send('https://cdn.discordapp.com/attachments/892822047405768714/901595903666847744/newweek.gif')
+            }
+        }))
+    }
+    else if (command === 'pause')
+    {
+        const Discord = require("discord.js");
+        bot.commands.get('pause').execute(message,args);
     }
 }
 
@@ -72,4 +122,4 @@ bot.on('messageCreate', message => {
 bot.on('error', console.error);
 
 /* Connecte le bot avec le token fourni en paramètre */
-bot.login(process.env.TOKEN);
+bot.login(config.token);
