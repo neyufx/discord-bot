@@ -104,7 +104,7 @@ bot.on('messageCreate', message => {
     {
         const Discord = require("discord.js");
         bot.commands.get('semaine').execute(message,args);
-        const channel = bot.channels.cache.get('898683278775713823'); // id catégorie
+        const channel = bot.channels.cache.get('887267095493103637'); // id catégorie
         console.log(channel.children.forEach(e => {
             if(e.name !== undefined)
             {
@@ -123,29 +123,25 @@ bot.on('messageCreate', message => {
         const Discord = require("discord.js");
         bot.commands.get('prime').execute(message,args);
         message.channel.send('https://cdn.discordapp.com/attachments/899030341338169364/901738822696570931/prime.gif');
-        var dd = String(today.getDate()).padStart(2, '0');
-                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-                var yyyy = today.getFullYear();
-                today = yyyy + '/' + mm + '/' + dd;
-                db.pool.getConnection(function(err, connection) {
-                    var today = new Date();
-                    var dd = String(today.getDate()).padStart(2, '0');
-                    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-                    var yyyy = today.getFullYear();
-                    today = yyyy + '/' + mm + '/' + dd;
-                    // Use the connection
-                    connection.query(`SELECT id FROM employees WHERE nomDossier = "${message.channel.name}"`, function(error, result,field) {  
-                        if (result[0] !== undefined){
-                    connection.query(`insert into dossiers(date,employee_id) values("${today}","${result[0]['id']}")`, function (error, results, fields) {
-                    // When done with the connection, release it.
-                    connection.release();
-                    // Handle error after the release.
-                    if (error) throw error;
-                    // Don't use the connection here, it has been returned to the pool.
-                    });
-                }
-                })
+        db.pool.getConnection(function(err, connection) {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+            today = yyyy + '/' + mm + '/' + dd;
+            // Use the connection
+            connection.query(`SELECT id FROM employees WHERE nomDossier = "${message.channel.name}"`, function(error, result,field) {  
+                if (result[0] !== undefined){
+            connection.query(`insert into primes(date,employee_id) values("${today}","${result[0]['id']}")`, function (error, results, fields) {
+            // When done with the connection, release it.
+            connection.release();
+            // Handle error after the release.
+            if (error) throw error;
+            // Don't use the connection here, it has been returned to the pool.
             });
+        }
+    })
+})
     }
 }
 

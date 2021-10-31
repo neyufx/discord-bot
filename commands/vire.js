@@ -6,7 +6,7 @@ module.exports = {
     description: 'Vire un employé',
     execute(message,args){
         let arg1 = args[0];
-        message.channel.setParent('899312965394771999'); // id de la catégorie du channel vire
+        message.channel.setParent('887269190883491880'); // id de la catégorie du channel vire
         
     }
 }

@@ -9,6 +9,6 @@ module.exports = {
     description: 'Pause employée',
     execute(message,args){
         let arg1 = args[0];
-        message.channel.setParent('903351714751578143'); // id de la catégorie du channel pause
+        message.channel.setParent('887268938763886614'); // id de la catégorie du channel pause
     }
 }
