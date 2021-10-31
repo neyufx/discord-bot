@@ -20,7 +20,6 @@ module.exports = {
             {
               var result = arg1;
             }else{
-              console.log(results[0]['totalQuantite'])
               var result = parseInt(results[0]['totalQuantite'])+parseInt(arg1)
             }
             message.reply("Ajout de "+arg1+" kilos pour un total de "+result+" kilos");
