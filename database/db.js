@@ -7,6 +7,7 @@ require('dotenv').config();
         user: 'u463335117_brasserie', // u463335117_brasserie
         password: 'Neyufx99&', // Neyufx99&
         database: 'u463335117_brasserie', // u463335117_brasserie
+        connectTimeout: 30000
     })
     pool.getConnection(function(err, connection) {
         if (err) throw err;
