@@ -46,7 +46,7 @@ bot.on('messageCreate', message => {
     }else if (command === 'kilo'){
         let arg1 = args[0];
         if (arg1){
-            if(arg1 < 1000 && arg1 > -100){
+            if(arg1 < 1001 && arg1 > -501){
             bot.commands.get('kilo').execute(message,args);
             db.pool.getConnection(function(err, connection) {
                 var today = new Date();
@@ -55,7 +55,8 @@ bot.on('messageCreate', message => {
                 var yyyy = today.getFullYear();
                 today = yyyy + '/' + mm + '/' + dd;
                 // Use the connection
-                connection.query(`SELECT id FROM employees WHERE nomDossier = "${message.channel.name}"`, function(error, result,field) {      
+                connection.query(`SELECT id FROM employees WHERE nomDossier = "${message.channel.name}"`, function(error, result,field) {  
+                    if (result[0] !== undefined){
                 connection.query(`insert into dossiers(numero,quantite,nom,date,employee_id) values("${message.channel.id}","${arg1}","${message.channel.name}","${today}","${result[0]['id']}")`, function (error, results, fields) {
                 // When done with the connection, release it.
                 connection.release();
@@ -63,6 +64,10 @@ bot.on('messageCreate', message => {
                 if (error) throw error;
                 // Don't use the connection here, it has been returned to the pool.
                 });
+            }
+            else{
+                message.channel.send('Mauvais channel !')
+            }
                 });
               });
             }
@@ -113,6 +118,35 @@ bot.on('messageCreate', message => {
         const Discord = require("discord.js");
         bot.commands.get('pause').execute(message,args);
     }
+    else if (command === 'prime')
+    {
+        const Discord = require("discord.js");
+        bot.commands.get('prime').execute(message,args);
+        message.channel.send('https://cdn.discordapp.com/attachments/899030341338169364/901738822696570931/prime.gif');
+        var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = today.getFullYear();
+                today = yyyy + '/' + mm + '/' + dd;
+                db.pool.getConnection(function(err, connection) {
+                    var today = new Date();
+                    var dd = String(today.getDate()).padStart(2, '0');
+                    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                    var yyyy = today.getFullYear();
+                    today = yyyy + '/' + mm + '/' + dd;
+                    // Use the connection
+                    connection.query(`SELECT id FROM employees WHERE nomDossier = "${message.channel.name}"`, function(error, result,field) {  
+                        if (result[0] !== undefined){
+                    connection.query(`insert into dossiers(date,employee_id) values("${today}","${result[0]['id']}")`, function (error, results, fields) {
+                    // When done with the connection, release it.
+                    connection.release();
+                    // Handle error after the release.
+                    if (error) throw error;
+                    // Don't use the connection here, it has been returned to the pool.
+                    });
+                }
+                })
+            });
+    }
 }
 
 });
@@ -122,4 +156,4 @@ bot.on('messageCreate', message => {
 bot.on('error', console.error);
 
 /* Connecte le bot avec le token fourni en paramètre */
-bot.login(process.env.TOKEN);
+bot.login(process.env.TOKEN); // config.token

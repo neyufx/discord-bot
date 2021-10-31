@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const db = require('../database/db.js');
+var curr = new Date; // get current date
 
 
 module.exports = {
@@ -9,8 +10,12 @@ module.exports = {
         let arg1 = args[0];
         db.pool.getConnection(function(err, connection) {
           // Use the connection
-          if (arg1 < 1000 && arg1 > -100){ // si nb de kilo renseigné < 1000
-          connection.query(`SELECT SUM(quantite) as totalQuantite FROM dossiers WHERE numero = "${message.channel.id}"`, function (error, results, fields) {
+          if (arg1 < 1001 && arg1 > -501){ // si nb de kilo renseigné < 1000
+            var first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
+            var last = first + 6; // last day is the first day + 6
+            var firstdate = new Date(curr.setDate(first)).toISOString().slice(0, 10);
+            var lastdate = new Date(curr.setDate(last)).toISOString().slice(0, 10);
+          connection.query(`SELECT SUM(quantite) as totalQuantite FROM dossiers WHERE date BETWEEN "${firstdate}" AND "${lastdate}" AND numero = "${message.channel.id}"`, function (error, results, fields) {
             if(results[0]['totalQuantite'] == null)
             {
               var result = arg1;
