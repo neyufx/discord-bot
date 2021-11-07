@@ -112,16 +112,6 @@ bot.on('messageCreate', message => {
                 channel01.send('https://cdn.discordapp.com/attachments/892822047405768714/901595903666847744/newweek.gif')
             }
         })
-        setTimeout(function () {
-            process.on("exit", function () {
-                require("child_process").spawn(process.argv.shift(), process.argv, {
-                    cwd: process.cwd(),
-                    detached : true,
-                    stdio: "inherit"
-                });
-            });
-            process.exit();
-        }, 5000);
     }
     else if (command === 'pause')
     {
