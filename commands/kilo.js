@@ -15,7 +15,6 @@ module.exports = {
             var last = first + 6; // last day is the first day + 6
             var firstdate = new Date(curr.setDate(first)).toISOString().slice(0, 10);
             var lastdate = new Date(curr.setDate(curr.getDate()+6)).toISOString().slice(0, 10);
-            console.log(firstdate+' '+lastdate);
           connection.query(`SELECT SUM(quantite) as totalQuantite FROM dossiers WHERE date BETWEEN "${firstdate}" AND "${lastdate}" AND numero = "${message.channel.id}"`, function (error, results, fields) {
             if(results[0]['totalQuantite'])
             {
