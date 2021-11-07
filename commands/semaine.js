@@ -8,6 +8,6 @@ module.exports = {
     name: 'semaine',
     description: 'Nouvelle Semaine',
     execute(message,args){
-        
+     process.exit();   
     }
 }
