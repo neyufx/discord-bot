@@ -144,6 +144,22 @@ bot.on('messageCreate', message => {
     })
 })
     }
+    else if (command === 'carte')
+    {
+        message.channel.send({files: ["./images/carte.png"]});
+    }
+    else if (command === 'commandes')
+    {
+        message.channel.send('!user <nomrp> <nomsteam> @taguser\n!kilo <nbkilos>\n!vire\n!pause\n!semaine\n!prime\n!carte\n!steamreg <lien compte steam>\n!steam')
+    }
+    else if (command === 'steamreg')
+    {
+        bot.commands.get('steamreg').execute(message,args);
+    }
+    else if (command === 'steam')
+    {
+        bot.commands.get('steam').execute(message,args);
+    }
 }
 
 });
