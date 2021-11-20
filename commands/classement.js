@@ -32,7 +32,7 @@ module.exports = {
                         function capitalizeFirstLetter(string) {
                             return string[0].toUpperCase() + string.slice(1);
                         }
-                        message.channel.send(`Classement semaine du ${dateFormat(firstdate)} au ${dateFormat(lastdate)} @here :`)
+                        message.channel.send(`🏆 Classement semaine du ${dateFormat(firstdate)} au ${dateFormat(lastdate)} @here :`)
                         let i = 1;
                         result.forEach(element => {
                             message.channel.send(`${i++}`+'. '+capitalizeFirstLetter(element['nomRp'].replace('-',' '))+' : '+element['totalKg']+'kg');
