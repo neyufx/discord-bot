@@ -22,6 +22,7 @@ module.exports = {
                 LIMIT 3`, function(error, result,field) {
                     if (error) throw error;
                     else if (result){
+                        let medals = ['🥇','🥈','🥉']
                         function dateFormat(date){
                             var today = new Date(date);
                             var dd = String(today.getDate()).padStart(2, '0');
@@ -33,9 +34,9 @@ module.exports = {
                             return string[0].toUpperCase() + string.slice(1);
                         }
                         message.channel.send(`🏆 Classement semaine du ${dateFormat(firstdate)} au ${dateFormat(lastdate)} @here :`)
-                        let i = 1;
+                        let i = 0;
                         result.forEach(element => {
-                            message.channel.send(`${i++}`+'. '+capitalizeFirstLetter(element['nomRp'].replace('-',' '))+' : '+element['totalKg']+'kg');
+                            message.channel.send(`${medals[i++]}`+'. '+capitalizeFirstLetter(element['nomRp'].replace('-',' '))+' : '+element['totalKg']+'kg');
                         });  
                 } // fin if
                 else{
