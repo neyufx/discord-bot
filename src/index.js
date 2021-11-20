@@ -160,6 +160,10 @@ bot.on('messageCreate', message => {
     {
         bot.commands.get('steam').execute(message,args);
     }
+    else if (command === 'classement')
+    {
+        bot.commands.get('classement').execute(message,args);
+    }
 }
 
 });
