@@ -36,7 +36,7 @@ module.exports = {
                         message.channel.send(`🏆 Classement semaine du ${dateFormat(firstdate)} au ${dateFormat(lastdate)} @here :`)
                         let i = 0;
                         result.forEach(element => {
-                            message.channel.send(`${medals[i++]}`+'. '+capitalizeFirstLetter(element['nomRp'].replace('-',' '))+' : '+element['totalKg']+'kg');
+                            message.channel.send(`${medals[i++]}`+' - '+capitalizeFirstLetter(element['nomRp'].replace('-',' '))+' : '+element['totalKg']+'kg');
                         });  
                 } // fin if
                 else{
