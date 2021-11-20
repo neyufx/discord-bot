@@ -22,10 +22,13 @@ module.exports = {
                 LIMIT 3`, function(error, result,field) {
                     if (error) throw error;
                     else if (result){
+                        function capitalizeFirstLetter(string) {
+                            return string[0].toUpperCase() + string.slice(1);
+                        }
                         message.channel.send(`Classement semaine du ${firstdate} au ${lastdate} @here :`)
                         let i = 1;
                         result.forEach(element => {
-                            message.channel.send(`${i++}`+'. '+element['nomRp']+' : '+element['totalKg']+'kg');
+                            message.channel.send(`${i++}`+'. '+capitalizeFirstLetter(element['nomRp'].replace('-',' '))+' : '+element['totalKg']+'kg');
                         });  
                 } // fin if
                 else{
