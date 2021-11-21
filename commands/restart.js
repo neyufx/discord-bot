@@ -8,6 +8,6 @@ module.exports = {
     name: 'restart',
     description: 'Redemarre le bot',
     execute(message,args){
-        message.channel.send('Le bot redémarre..').then(process.exit(0));
+        message.channel.send('Le bot redémarre..').then(()=>bot.destroy()).then(()=>bot.login(config.token));
     }
 }
