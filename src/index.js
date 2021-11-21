@@ -165,10 +165,6 @@ bot.on('messageCreate', message => {
     {
         bot.commands.get('classement').execute(message,args);
     }
-    else if (command === 'restart')
-    {
-        bot.commands.get('restart').execute(message,args);
-    }
 }
 
 });
