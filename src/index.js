@@ -112,7 +112,7 @@ bot.on('messageCreate', message => {
                 channel01.send('https://cdn.discordapp.com/attachments/892822047405768714/901595903666847744/newweek.gif')
             }
         })
-        message.channel.send(`Le bot redémarre...`).then(process.exit(0));
+        //message.channel.send(`Le bot redémarre...`).then(process.exit(0));
         // ()=>bot.destroy()).then(()=>bot.login(config.token) 'dans le then'
     }
     else if (command === 'pause')
