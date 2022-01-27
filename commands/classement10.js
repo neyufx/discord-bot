@@ -36,7 +36,15 @@ module.exports = {
                         let i = 1;
                         result.forEach(element => {
                             message.channel.send(`${i++}`+'. '+capitalizeFirstLetter(element['nomRp'].replace('-',' '))+' : '+element['totalKg']+'kg');
-                        });  
+                        });
+                        connection.query(`SELECT SUM(quantite) as totalKg 
+                        FROM dossiers JOIN employees on employee_id = employees.id 
+                        WHERE date BETWEEN "${firstdate}" AND "${lastdate}"`, function(error,result,field){
+                            if (error) throw error;
+                                else if (result){
+                                    message.channel.send(`Total kg : `+ result[0]);
+                            }
+                        })
                 } // fin if
                 else{
                 message.channel.send('Il n\'y a pas de classement cette semaine !');
