@@ -165,6 +165,19 @@ bot.on('messageCreate', message => {
     {
         bot.commands.get('classement').execute(message,args);
     }
+    else if (command === 'salon')
+    {
+        salons = ['<#790677077375320094>','<#798277815325032498>','<#902264707438764042>','<#925423735262052442>'];
+        salons.forEach(element => {
+            message.channel.send(element);
+        })
+        console.log(salons);
+        bot.commands.get('salon').execute(message,args);
+    }
+    else if (command === 'classement10')
+    {
+        bot.commands.get('classement10').execute(message,args);
+    }
 }
 
 });
