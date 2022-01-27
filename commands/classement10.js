@@ -42,7 +42,7 @@ module.exports = {
                         WHERE date BETWEEN "${firstdate}" AND "${lastdate}"`, function(error,result,field){
                             if (error) throw error;
                                 else if (result){
-                                    message.channel.send(`Total kg : `+ result[0]);
+                                    message.channel.send(`Total kg : `+ result['totalKg']);
                             }
                         })
                 } // fin if
