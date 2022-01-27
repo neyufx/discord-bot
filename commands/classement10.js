@@ -32,7 +32,7 @@ module.exports = {
                         function capitalizeFirstLetter(string) {
                             return string[0].toUpperCase() + string.slice(1);
                         }
-                        message.channel.send(`Classement semaine du ${dateFormat(firstdate)} au ${dateFormat(lastdate)} @here :`)
+                        message.channel.send(`Classement semaine du ${dateFormat(firstdate)} au ${dateFormat(lastdate)} :`)
                         let i = 1;
                         result.forEach(element => {
                             message.channel.send(`${i++}`+'. '+capitalizeFirstLetter(element['nomRp'].replace('-',' '))+' : '+element['totalKg']+'kg');
@@ -42,7 +42,7 @@ module.exports = {
                         WHERE date BETWEEN "${firstdate}" AND "${lastdate}"`, function(error,result,field){
                             if (error) throw error;
                                 else if (result){
-                                    message.channel.send(`Total kg : `+ result[0]['totalKg']);
+                                    message.channel.send(`Total : `+ result[0]['totalKg']+` kg`);
                             }
                         })
                 } // fin if
