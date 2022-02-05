@@ -36,7 +36,7 @@ bot.on('messageCreate', message => {
     const coPatronRole = message.member.roles.cache.some(role => role.name === 'Co-Patron');// rôle
     const patronRole = message.member.roles.cache.some(role => role.name === 'Patron');// rôle
     /* Si la commande user */
-    if(gerantRole){
+    if(gerantRole == 'test'){
     if(command === 'user'){ // Commande !user <nomrp> <nomsteam> @taguser
         let arg1 = args[0];
         let arg2 = args[1];
