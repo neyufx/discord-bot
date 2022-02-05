@@ -20,28 +20,7 @@ module.exports = {
                 group by nom
                 ORDER by totalKg desc
                 LIMIT 3`, function(error, result,field) {
-                    if (error) throw error;
-                    else if (result){
-                        let medals = ['🥇','🥈','🥉']
-                        function dateFormat(date){
-                            var today = new Date(date);
-                            var dd = String(today.getDate()).padStart(2, '0');
-                            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-                            var yyyy = today.getFullYear();
-                            return dd + '/' + mm + '/' + yyyy;
-                        }
-                        function capitalizeFirstLetter(string) {
-                            return string[0].toUpperCase() + string.slice(1);
-                        }
-                        message.channel.send(`🏆 Classement semaine du ${dateFormat(firstdate)} au ${dateFormat(lastdate)} @here :`)
-                        let i = 0;
-                        result.forEach(element => {
-                            message.channel.send(`${medals[i++]}`+' - '+capitalizeFirstLetter(element['nomRp'].replace('-',' '))+' : '+element['totalKg']+'kg');
-                        });  
-                } // fin if
-                else{
-                message.channel.send('Il n\'y a pas de classement cette semaine !');
-                }
+
                 // When done with the connection, release it.
                 connection.release();
                 // Handle error after the release.
