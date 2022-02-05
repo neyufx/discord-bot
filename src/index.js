@@ -163,10 +163,6 @@ bot.on('messageCreate', message => {
     {
         bot.commands.get('steam').execute(message,args);
     }
-    else if (command === 'classement')
-    {
-        //bot.commands.get('classement').execute(message,args);
-    }
     else if (command === 'salon')
     {
         salons = ['<#790677077375320094>','<#798277815325032498>','<#902264707438764042>','<#925423735262052442>'];
