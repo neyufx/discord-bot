@@ -14,13 +14,39 @@ module.exports = {
                 var last = first + 6; // last day is the first day + 6
                 var firstdate = new Date(curr.setDate(first)).toISOString().slice(0, 10);
                 var lastdate = new Date(curr.setDate(curr.getDate()+6)).toISOString().slice(0, 10);
+                const coPatronRole = message.member.roles.cache.some(role => role.name === 'Co-Patron');// rôle
+                const patronRole = message.member.roles.cache.some(role => role.name === 'Patron');// rôle
                 connection.query(`SELECT employees.nomRp,SUM(quantite) as totalKg
                 FROM dossiers JOIN employees on employee_id = employees.id 
                 WHERE date BETWEEN "${firstdate}" AND "${lastdate}"
                 group by nom
                 ORDER by totalKg desc
                 LIMIT 3`, function(error, result,field) {
-
+                    if (error) throw error;
+                    else if (result){
+                        if(coPatronRole || patronRole){
+                        let medals = ['🥇','🥈','🥉']
+                        function dateFormat(date){
+                            var today = new Date(date);
+                            var dd = String(today.getDate()).padStart(2, '0');
+                            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                            var yyyy = today.getFullYear();
+                            return dd + '/' + mm + '/' + yyyy;
+                        
+                        }
+                        function capitalizeFirstLetter(string) {
+                            return string[0].toUpperCase() + string.slice(1);
+                        }
+                        message.channel.send(`🏆 Classement semaine du ${dateFormat(firstdate)} au ${dateFormat(lastdate)} @here :`)
+                        let i = 0;
+                        result.forEach(element => {
+                            message.channel.send(`${medals[i++]}`+' - '+capitalizeFirstLetter(element['nomRp'].replace('-',' '))+' : '+element['totalKg']+'kg');
+                        });  
+                    }
+                } // fin if
+                else{
+                message.channel.send('Il n\'y a pas de classement cette semaine !');
+                }
                 // When done with the connection, release it.
                 connection.release();
                 // Handle error after the release.

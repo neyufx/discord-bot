@@ -178,9 +178,7 @@ bot.on('messageCreate', message => {
     }
     else if (command === 'classement10')
     {
-        if(coPatronRole || patronRole){
         bot.commands.get('classement10').execute(message,args);
-        }
     }
 }
 
