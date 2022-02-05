@@ -33,6 +33,8 @@ bot.on('messageCreate', message => {
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
     const gerantRole = message.member.roles.cache.some(role => role.name === 'Gérants');// rôle
+    const coPatronRole = message.member.roles.cache.some(role => role.name === 'Co-Patron');// rôle
+    const patronRole = message.member.roles.cache.some(role => role.name === 'Patron');// rôle
     /* Si la commande user */
     if(gerantRole){
     if(command === 'user'){ // Commande !user <nomrp> <nomsteam> @taguser
@@ -163,7 +165,9 @@ bot.on('messageCreate', message => {
     }
     else if (command === 'classement')
     {
+        if(coPatronRole || patronRole){
         bot.commands.get('classement').execute(message,args);
+        }
     }
     else if (command === 'salon')
     {
@@ -176,7 +180,9 @@ bot.on('messageCreate', message => {
     }
     else if (command === 'classement10')
     {
+        if(coPatronRole || patronRole){
         bot.commands.get('classement10').execute(message,args);
+        }
     }
 }
 
