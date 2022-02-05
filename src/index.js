@@ -165,9 +165,7 @@ bot.on('messageCreate', message => {
     }
     else if (command === 'classement')
     {
-        if(coPatronRole || patronRole){
-        bot.commands.get('classement').execute(message,args);
-        }
+        //bot.commands.get('classement').execute(message,args);
     }
     else if (command === 'salon')
     {
