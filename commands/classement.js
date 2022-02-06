@@ -14,8 +14,6 @@ module.exports = {
                 var last = first + 6; // last day is the first day + 6
                 var firstdate = new Date(curr.setDate(first)).toISOString().slice(0, 10);
                 var lastdate = new Date(curr.setDate(curr.getDate()+6)).toISOString().slice(0, 10);
-                const coPatronRole = message.member.roles.cache.some(role => role.name === 'Co-Patron');// rôle
-                const patronRole = message.member.roles.cache.some(role => role.name === 'Patron');// rôle
                 connection.query(`SELECT employees.nomRp,SUM(quantite) as totalKg
                 FROM dossiers JOIN employees on employee_id = employees.id 
                 WHERE date BETWEEN "${firstdate}" AND "${lastdate}"
@@ -31,7 +29,6 @@ module.exports = {
                             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
                             var yyyy = today.getFullYear();
                             return dd + '/' + mm + '/' + yyyy;
-                        
                         }
                         function capitalizeFirstLetter(string) {
                             return string[0].toUpperCase() + string.slice(1);
