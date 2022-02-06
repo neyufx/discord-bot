@@ -191,7 +191,7 @@ bot.on('messageCreate', message => {
             headers: {
                 'Content-type': 'application/json',
                 'Accept': 'application/vnd.heroku+json; version=3',
-                'Authorization': 'Bearer 6cc086cb-3ce2-4991-9c8d-349a6088e87e'
+                'Authorization': 'Bearer '+process.env.KEY
             }
         }).then(response => response.json())
         .then(response => console.log(response));
