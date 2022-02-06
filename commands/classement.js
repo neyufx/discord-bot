@@ -24,7 +24,6 @@ module.exports = {
                 LIMIT 3`, function(error, result,field) {
                     if (error) throw error;
                     else if (result){
-                        if(coPatronRole || patronRole){
                         let medals = ['🥇','🥈','🥉']
                         function dateFormat(date){
                             var today = new Date(date);
@@ -42,7 +41,6 @@ module.exports = {
                         result.forEach(element => {
                             message.channel.send(`${medals[i++]}`+' - '+capitalizeFirstLetter(element['nomRp'].replace('-',' '))+' : '+element['totalKg']+'kg');
                         });  
-                    }
                 } // fin if
                 else{
                 message.channel.send('Il n\'y a pas de classement cette semaine !');
