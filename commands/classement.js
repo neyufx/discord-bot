@@ -6,7 +6,7 @@ const db = require('../database/db.js');
 var curr = new Date; // get current date
 
 module.exports = {
-    name: 'classement10',
+    name: 'classement',
     description: 'Donne le classement des employées',
     execute(message,args){
             db.pool.getConnection(function(err, connection) {
@@ -19,9 +19,10 @@ module.exports = {
                 WHERE date BETWEEN "${firstdate}" AND "${lastdate}"
                 group by nom
                 ORDER by totalKg desc
-                LIMIT 10`, function(error, result,field) {
+                LIMIT 3`, function(error, result,field) {
                     if (error) throw error;
                     else if (result){
+                        let medals = ['🥇','🥈','🥉']
                         function dateFormat(date){
                             var today = new Date(date);
                             var dd = String(today.getDate()).padStart(2, '0');
@@ -32,21 +33,11 @@ module.exports = {
                         function capitalizeFirstLetter(string) {
                             return string[0].toUpperCase() + string.slice(1);
                         }
-                        message.channel.send(`Classement semaine du ${dateFormat(firstdate)} au ${dateFormat(lastdate)} @here :`)
-                        let i = 1;
+                        message.channel.send(`🏆 Classement semaine du ${dateFormat(firstdate)} au ${dateFormat(lastdate)} @here :`)
+                        let i = 0;
                         result.forEach(element => {
-                            message.channel.send(`${i++}`+'. '+capitalizeFirstLetter(element['nomRp'].replace('-',' '))+' : '+element['totalKg']+'kg');
-                        });
-                        connection.query(`SELECT SUM(quantite) as totalKg 
-                        FROM dossiers JOIN employees on employee_id = employees.id 
-                        WHERE date BETWEEN "${firstdate}" AND "${lastdate}"`, function(error,result,field){
-                            console.log(result[0]['totalKg']);
-                            if (error) throw error;
-                                else if (result){
-                                    console.log(result);
-                                    message.channel.send(`Total kg : `+ result[0]['totalKg']);
-                            }
-                        });
+                            message.channel.send(`${medals[i++]}`+' - '+capitalizeFirstLetter(element['nomRp'].replace('-',' '))+' : '+element['totalKg']+'kg');
+                        });  
                 } // fin if
                 else{
                 message.channel.send('Il n\'y a pas de classement cette semaine !');
