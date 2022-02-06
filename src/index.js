@@ -5,6 +5,7 @@ const config = require('./config.json');
 const path = require('path');
 const db = require('../database/db.js');
 const { channel } = require('diagnostics_channel');
+const fetch = require('node-fetch');
 const prefix = "!";
 
 
