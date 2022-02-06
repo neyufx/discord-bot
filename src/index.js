@@ -184,6 +184,17 @@ bot.on('messageCreate', message => {
         bot.commands.get('classement10').execute(message,args);
         }
     }
+    else if (command === 'restart'){
+        fetch('https://api.heroku.com/apps/brasserie-bot/dynos', {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json',
+                'Accept': 'application/vnd.heroku+json; version=3',
+                'Authorization': 'Bearer 6cc086cb-3ce2-4991-9c8d-349a6088e87e'
+            }
+        }).then(response => response.json())
+        .then(response => console.log(response));
+    }
 }
 
 });
