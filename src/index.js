@@ -166,9 +166,7 @@ bot.on('messageCreate', message => {
     }
     else if (command === 'classement')
     {
-        if(patronRole || coPatronRole){
         bot.commands.get('classement').execute(message,args);
-        }
     }
     else if (command === 'salon')
     {
@@ -181,9 +179,7 @@ bot.on('messageCreate', message => {
     }
     else if (command === 'classement10')
     {
-        if(patronRole || coPatronRole){
         bot.commands.get('classement10').execute(message,args);
-        }
     }
     else if (command === 'restart'){
         fetch('https://api.heroku.com/apps/brasserie-bot/dynos', {
