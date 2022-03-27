@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Client, MessageEmbed, Intents } = require('discord.js');
+const { Client, Intents, MessageEmbed } = require('discord.js');
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES] });
 const { Guild } = require('discord.js');
 const db = require('../database/db.js');
@@ -22,25 +22,23 @@ module.exports = {
                 LIMIT 10`, function(error, result1,field) {
                     if (error) throw error;
                     else if (result1){
-
                         function dateFormat(date){
                             var today = new Date(date);
-                            today.setHours( curr.getHours() + 1 );
                             var dd = String(today.getDate()).padStart(2, '0');
                             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
                             var yyyy = today.getFullYear();
                             return dd + '/' + mm + '/' + yyyy;
                         }
-                        
                         function capitalizeFirstLetter(string) {
                             return string[0].toUpperCase() + string.slice(1);
                         }
-
+                        
                         connection.query(`SELECT SUM(quantite) as totalKg 
                         FROM dossiers JOIN employees on employee_id = employees.id 
                         WHERE date BETWEEN "${firstdate}" AND "${lastdate}"`, function(error,result2,field){
                             if (error) throw error;
                                 else if (result2){
+                                    let i = 1;
                                     var total = result2[0]['totalKg'];
                                     const embedMessage = new MessageEmbed()
                                     .setTitle(`🏆 Classement semaine du ${dateFormat(firstdate)} au ${dateFormat(lastdate)} 🏆`)
@@ -55,7 +53,7 @@ module.exports = {
                                     //embedMessage.addField(total,'test');
                                     message.channel.send({embeds: [embedMessage]});
                             }
-                        })
+                        });
                 } // fin if
                 else{
                 message.channel.send('Il n\'y a pas de classement cette semaine !');
