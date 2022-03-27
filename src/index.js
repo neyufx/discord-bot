@@ -175,6 +175,7 @@ bot.on('messageCreate', message => {
     }
     else if (command === 'classement10')
     {
+        message.delete(1000);
         bot.commands.get('classement10').execute(message,args);
     }
     else if (command === 'restart'){

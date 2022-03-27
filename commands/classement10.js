@@ -19,30 +19,41 @@ module.exports = {
                 WHERE date BETWEEN "${firstdate}" AND "${lastdate}"
                 group by nom
                 ORDER by totalKg desc
-                LIMIT 10`, function(error, result,field) {
+                LIMIT 10`, function(error, result1,field) {
                     if (error) throw error;
-                    else if (result){
+                    else if (result1){
+
                         function dateFormat(date){
                             var today = new Date(date);
+                            today.setHours( curr.getHours() + 1 );
                             var dd = String(today.getDate()).padStart(2, '0');
                             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
                             var yyyy = today.getFullYear();
                             return dd + '/' + mm + '/' + yyyy;
                         }
+                        
                         function capitalizeFirstLetter(string) {
                             return string[0].toUpperCase() + string.slice(1);
                         }
-                        message.channel.send(`Classement semaine du ${dateFormat(firstdate)} au ${dateFormat(lastdate)} :`)
-                        let i = 1;
-                        result.forEach(element => {
-                            message.channel.send(`${i++}`+'. '+capitalizeFirstLetter(element['nomRp'].replace('-',' '))+' : '+element['totalKg']+'kg');
-                        });
+
                         connection.query(`SELECT SUM(quantite) as totalKg 
                         FROM dossiers JOIN employees on employee_id = employees.id 
-                        WHERE date BETWEEN "${firstdate}" AND "${lastdate}"`, function(error,result,field){
+                        WHERE date BETWEEN "${firstdate}" AND "${lastdate}"`, function(error,result2,field){
                             if (error) throw error;
-                                else if (result){
-                                    message.channel.send(`Total : `+ result[0]['totalKg']+` kg`);
+                                else if (result2){
+                                    var total = result2[0]['totalKg'];
+                                    const embedMessage = new MessageEmbed()
+                                    .setTitle(`🏆 Classement semaine du ${dateFormat(firstdate)} au ${dateFormat(lastdate)} 🏆`)
+                                    .setColor('#E67E22')
+                                    .setFooter({text:'© Ferme'})
+                                    .setTimestamp();
+                                    result1.forEach(element => {
+                                        embedMessage.addField(`${i++}`+'. '+capitalizeFirstLetter(element['nomRp'].replace('-',' ')), `${element['totalKg']}kg`);
+                                    });
+                                    embedMessage.addField(`── Total ──`, `🌾 ${result2[0]['totalKg']}kg 🌾`);
+                                    console.log(result2[0]['totalKg'])
+                                    //embedMessage.addField(total,'test');
+                                    message.channel.send({embeds: [embedMessage]});
                             }
                         })
                 } // fin if
