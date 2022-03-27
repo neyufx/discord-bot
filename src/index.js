@@ -166,6 +166,7 @@ bot.on('messageCreate', message => {
     }
     else if (command === 'classement')
     {
+        message.delete(1000);
         bot.commands.get('classement').execute(message,args);
     }
     else if (command === 'salon')
