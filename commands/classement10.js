@@ -4,6 +4,7 @@ const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MES
 const { Guild } = require('discord.js');
 const db = require('../database/db.js');
 var curr = new Date; // get current date
+curr.setHours( curr.getHours() + 1 );
 
 module.exports = {
     name: 'classement10',
