@@ -39,6 +39,7 @@ bot.on('messageCreate', message => {
     /* Si la commande user */
     if(gerantRole){
     if(command === 'user'){ // Commande !user <nomrp> <nomsteam> @taguser
+        message.delete(1000);
         let arg1 = args[0];
         let arg2 = args[1];
         let arg3 = args[2];
@@ -53,14 +54,15 @@ bot.on('messageCreate', message => {
             bot.commands.get('kilo').execute(message,args);
             db.pool.getConnection(function(err, connection) {
                 var today = new Date();
+                today.setHours( today.getHours()+2); // Ajout de 2 heures pour être à jour sur l'heure locale
                 var dd = String(today.getDate()).padStart(2, '0');
                 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
                 var yyyy = today.getFullYear();
-                today = yyyy + '/' + mm + '/' + dd;
+                var date = yyyy + '/' + mm + '/' + dd;
                 // Use the connection
                 connection.query(`SELECT id FROM employees WHERE nomDossier = "${message.channel.name}"`, function(error, result,field) {  
                     if (result[0] !== undefined){
-                connection.query(`insert into dossiers(numero,quantite,nom,date,employee_id) values("${message.channel.id}","${arg1}","${message.channel.name}","${today}","${result[0]['id']}")`, function (error, results, fields) {
+                connection.query(`insert into dossiers(numero,quantite,nom,date,employee_id) values("${message.channel.id}","${arg1}","${message.channel.name}","${date}","${result[0]['id']}")`, function (error, results, fields) {
                 // When done with the connection, release it.
                 connection.release();
                 // Handle error after the release.
@@ -69,7 +71,7 @@ bot.on('messageCreate', message => {
                 });
             }
             else{
-                message.channel.send('Mauvais channel !')
+                message.channel.send('Mauvais channel !');
             }
                 });
               });
@@ -79,6 +81,7 @@ bot.on('messageCreate', message => {
             }
         }
     }else if (command === 'vire'){
+        message.delete(1000);
         const Discord = require("discord.js");
         bot.commands.get('vire').execute(message,args);
         message.channel.send("https://cdn.discordapp.com/attachments/899310160672067586/899310182075609108/vire.gif");
