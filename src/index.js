@@ -1,4 +1,4 @@
-const { Client, Collection, Intents,MessageEmbed } = require('discord.js');
+const { Client, Collection, Intents, MessageAttachment, MessageEmbed } = require('discord.js');
 const fs = require('fs');
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES] });
 const config = require('./config.json');
