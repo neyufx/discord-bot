@@ -147,7 +147,7 @@ bot.on('messageCreate', message => {
         message.delete(1000);
         const Discord = require("discord.js");
         bot.commands.get('prime').execute(message,args);
-        message.channel.send('https://cdn.discordapp.com/attachments/899030341338169364/901738822696570931/prime.gif');
+        message.channel.send({files: ["./images/prime.gif"]});
         db.pool.getConnection(function(err, connection) {
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
