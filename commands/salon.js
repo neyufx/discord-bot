@@ -12,7 +12,7 @@ module.exports = {
             .setTitle('🚪 Salons important')
             .setDescription('<#790677077375320094>\n<#798277815325032498>\n<#902264707438764042>\n<#925423735262052442>')
             .setColor('#FEE75C')
-            .setFooter({text:'© Brasserie'})
+            .setFooter('© Brasserie')
             .setTimestamp();
             message.channel.send({embeds: [embedMessage]});
     }
