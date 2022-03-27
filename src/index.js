@@ -151,10 +151,10 @@ bot.on('messageCreate', message => {
     else if (command === 'carte')
     {
         message.delete(1000);
-        const file = new MessageAttachment("./images/carte.PNG");
+        const file = new MessageAttachment("./images/carte.png");
         const embedMessage = new MessageEmbed()
         .setTitle('🗺️ Carte Brasserie')
-        .setImage('attachment://carte.PNG')
+        .setImage('attachment://carte.png')
         .setColor('#E67E22')
         .setFooter('© Brasserie')
         .setTimestamp();
