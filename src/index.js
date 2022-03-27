@@ -105,26 +105,43 @@ bot.on('messageCreate', message => {
     }
     else if (command === 'semaine')
     {
+        
         const Discord = require("discord.js");
         bot.commands.get('semaine').execute(message,args);
-        const channel = bot.channels.cache.get('887267095493103637'); // id catégorie
-        channel.children.forEach(e => {
+        const channelCategory = bot.channels.cache.get('887267095493103637'); // id catégorie
+        channelCategory.children.forEach(e => {
             if(e.name !== undefined)
             {
+                const file = new MessageAttachment("./images/semaine.gif");
+                const embedMessage = new MessageEmbed()
+                        .setTitle('✨ Nouvelle semaine ✨')
+                        .setImage('attachment://semaine.gif')
+                        .setColor('#E67E22')
+                        .setFooter({text:'© Brasserie'})
+                        .setTimestamp();
                 const channel01 = bot.channels.cache.get(e.id);
-                channel01.send('https://cdn.discordapp.com/attachments/892822047405768714/901595903666847744/newweek.gif')
+                channel01.send({embeds: [embedMessage], files: [file]})
             }
         })
-        //message.channel.send(`Le bot redémarre...`).then(process.exit(0));
-        // ()=>bot.destroy()).then(()=>bot.login(config.token) 'dans le then'
+        fetch('https://api.heroku.com/apps/brasserie-bot/dynos', {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json',
+                'Accept': 'application/vnd.heroku+json; version=3',
+                'Authorization': 'Bearer '+process.env.KEY
+            }
+        }).then(response => response.json())
+        .then(response => message.channel.send(response));
     }
     else if (command === 'pause')
     {
+        message.delete(1000);
         const Discord = require("discord.js");
         bot.commands.get('pause').execute(message,args);
     }
     else if (command === 'prime')
     {
+        message.delete(1000);
         const Discord = require("discord.js");
         bot.commands.get('prime').execute(message,args);
         message.channel.send('https://cdn.discordapp.com/attachments/899030341338169364/901738822696570931/prime.gif');
