@@ -154,7 +154,14 @@ bot.on('messageCreate', message => {
     }
     else if (command === 'commandes')
     {
-        message.channel.send('!user <nomrp> <nomsteam> @taguser\n!kilo <nbkilos>\n!vire\n!pause\n!semaine\n!prime\n!carte\n!steamreg <lien compte steam>\n!steam\n!classement\n!restart\n!salon\n!classement10')
+        message.delete(1000);
+        const embedMessage = new MessageEmbed()
+        .setTitle('🛠️ Listes des commandes')
+        .setDescription('!user <nomrp> <nomsteam> @taguser\n!kilo <nbkilos>\n!vire\n!pause\n!semaine\n!prime\n!carte\n!steamreg <lien compte steam>\n!steam\n!classement\n!restart\n!salon\n!classement10')
+        .setColor('#E67E22')
+        .setFooter('© Ferme')
+        .setTimestamp();
+        message.channel.send({embeds: [embedMessage]})
     }
     else if (command === 'steamreg')
     {
