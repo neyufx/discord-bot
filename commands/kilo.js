@@ -24,7 +24,7 @@ module.exports = {
             .setTitle("── 🍺 Ajout de kilos 🍺 ──")
             .setColor("#E67E22")
             .setDescription("Ajout de : "+arg1+" kg \nTotal de : "+result+" kg")
-            .setFooter('© Brasserie',message.guild.iconUrl());
+            .setFooter('© Brasserie');
             message.channel.send({embeds: [embedMessage]});
           // When done with the connection, release it.
           connection.release();
