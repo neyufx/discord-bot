@@ -6,7 +6,7 @@ const db = require('../database/db.js');
 module.exports = {
 	name: 'kilo',
     description: 'Ajouts des kilos',
-    execute(message,args){
+    execute(message,args){ // test
         let arg1 = args[0];
         db.pool.getConnection(function(err, connection) {
           // Use the connection
