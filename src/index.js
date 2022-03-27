@@ -150,7 +150,15 @@ bot.on('messageCreate', message => {
     }
     else if (command === 'carte')
     {
-        message.channel.send({files: ["./images/carte.png"]});
+        message.delete(1000);
+        const file = new MessageAttachment("./images/carte.PNG");
+        const embedMessage = new MessageEmbed()
+        .setTitle('🗺️ Carte Brasserie')
+        .setImage('attachment://carte.PNG')
+        .setColor('#E67E22')
+        .setFooter('© Brasserie')
+        .setTimestamp();
+        message.channel.send({embeds: [embedMessage], files: [file]});
     }
     else if (command === 'commandes')
     {
