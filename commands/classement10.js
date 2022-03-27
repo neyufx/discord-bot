@@ -45,7 +45,7 @@ module.exports = {
                                     const embedMessage = new MessageEmbed()
                                     .setTitle(`🏆 Classement semaine du ${dateFormat(firstdate)} au ${dateFormat(lastdate)} 🏆`)
                                     .setColor('#E67E22')
-                                    .setFooter({text:'© Ferme'})
+                                    .setFooter('© Ferme')
                                     .setTimestamp();
                                     result1.forEach(element => {
                                         embedMessage.addField(`${i++}`+'. '+capitalizeFirstLetter(element['nomRp'].replace('-',' ')), `${element['totalKg']}kg`);
