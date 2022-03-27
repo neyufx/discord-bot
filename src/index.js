@@ -158,10 +158,12 @@ bot.on('messageCreate', message => {
     }
     else if (command === 'steamreg')
     {
+        message.delete(1000);
         bot.commands.get('steamreg').execute(message,args);
     }
     else if (command === 'steam')
     {
+        message.delete(1000);
         bot.commands.get('steam').execute(message,args);
     }
     else if (command === 'classement')
