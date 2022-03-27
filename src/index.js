@@ -105,7 +105,7 @@ bot.on('messageCreate', message => {
     }
     else if (command === 'semaine')
     {
-        
+        message.delete(1000);
         const Discord = require("discord.js");
         bot.commands.get('semaine').execute(message,args);
         const channelCategory = bot.channels.cache.get('887267095493103637'); // id catégorie
@@ -117,7 +117,7 @@ bot.on('messageCreate', message => {
                         .setTitle('✨ Nouvelle semaine ✨')
                         .setImage('attachment://semaine.gif')
                         .setColor('#E67E22')
-                        .setFooter({text:'© Brasserie'})
+                        .setFooter('© Brasserie')
                         .setTimestamp();
                 const channel01 = bot.channels.cache.get(e.id);
                 channel01.send({embeds: [embedMessage], files: [file]})
