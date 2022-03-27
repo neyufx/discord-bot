@@ -42,7 +42,7 @@ module.exports = {
                             {name: `${medals[2]} - ${capitalizeFirstLetter(result[2]['nomRp'].replace('-',' '))}`, value: `Total : ${result[2]['totalKg']} kg`}
                         )
                         .setColor('#E67E22')
-                        .setFooter('© Ferme')
+                        .setFooter('© Brasserie')
                         .setTimestamp();
                         message.channel.send({embeds: [embedMessage]});
                 } // fin if

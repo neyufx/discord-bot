@@ -167,7 +167,7 @@ bot.on('messageCreate', message => {
         .setTitle('🛠️ Listes des commandes')
         .setDescription('!user <nomrp> <nomsteam> @taguser\n!kilo <nbkilos>\n!vire\n!pause\n!semaine\n!prime\n!carte\n!steamreg <lien compte steam>\n!steam\n!classement\n!restart\n!salon\n!classement10')
         .setColor('#E67E22')
-        .setFooter('© Ferme')
+        .setFooter('© Brasserie')
         .setTimestamp();
         message.channel.send({embeds: [embedMessage]})
     }
