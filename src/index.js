@@ -170,6 +170,7 @@ bot.on('messageCreate', message => {
     }
     else if (command === 'salon')
     {
+        message.delete(1000);
         bot.commands.get('salon').execute(message,args);
     }
     else if (command === 'classement10')
