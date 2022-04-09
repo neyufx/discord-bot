@@ -65,6 +65,7 @@ bot.on('messageCreate', message => {
                 connection.query(`insert into dossiers(numero,quantite,nom,date,employee_id) values("${message.channel.id}","${arg1}","${message.channel.name}","${date}","${result[0]['id']}")`, function (error, results, fields) {
                 // When done with the connection, release it.
                 connection.release();
+                bot.commands.get('kilo').execute(message,args);
                 // Handle error after the release.
                 if (error) throw error;
                 // Don't use the connection here, it has been returned to the pool.
