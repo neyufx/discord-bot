@@ -16,7 +16,7 @@ module.exports = {
                         .setTitle('🔗 Lien Steam')
                         .setDescription('Le lien steam : '+result[0]['steamlink'] || 'Aucun steam enregistré')
                         .setColor('#E67E22')
-                        .setFooter('© Ferme')
+                        .setFooter({text:'© Brasserie'})
                         .setTimestamp();
                         message.channel.send({embeds: [embedMessage]})
                     }else{
@@ -24,7 +24,7 @@ module.exports = {
                         .setTitle('🔗 Lien Steam')
                         .setDescription('Il n\'y a pas de steam enregistré pour cette employé !')
                         .setColor('#E67E22')
-                        .setFooter('© Ferme')
+                        .setFooter({text:'© Brasserie'})
                         .setTimestamp();
                     message.channel.send({embeds: [embedMessage]})
                     // When done with the connection, release it.

@@ -1,11 +1,13 @@
-const { Client, Collection, Intents, Channel } = require('discord.js');
+const { Client, Intents, MessageEmbed, MessageAttachment } = require('discord.js');
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES] });
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { customAlphabet } = require('nanoid');
 const nanoid = customAlphabet('1234567890abcdef', 6);
 const db = require('../database/db.js');
 
-
+function capitalizeFirstLetter(string) {
+    return string[0].toUpperCase() + string.slice(1);
+}
 
 
 module.exports = {
@@ -15,9 +17,19 @@ module.exports = {
         let arg1 = args[0];
         let arg2 = args[1];
         let arg3 = nanoid();
+
+        const file = new MessageAttachment("./images/bienvenue.gif");
+        const Salons = new MessageEmbed()
+        .setTitle('✨ Bienvenue ✨')
+        .setDescription('🚪 Salons important\n<#954147152823722024>\n<#954147198008958976>\n<#954147293836238908>\n<#954147077791830086>')
+        .setImage('attachment://bienvenue.gif')
+        .setColor('#E67E22')
+        .setFooter({text:'© Ferme'})
+        .setTimestamp();
+
         message.guild.channels.create(arg3+'-'+arg1, {
             type: 'GUILD_TEXT',
-            parent: '887267095493103637', // Créer channel dans la catégorie
+            parent: '935208101014032384', // Créer channel dans la catégorie
             permissionOverwrites: [{
                 id: message.guild.id,
                 deny:['SEND_MESSAGES','VIEW_CHANNEL']
@@ -28,9 +40,15 @@ module.exports = {
             }
             
         ],
-        message: 'https://cdn.discordapp.com/attachments/899991942761431070/899991945361907782/welcome.gif'
-        }).then(channel => channel.send('https://cdn.discordapp.com/attachments/902945754111410246/902945756426686556/welcome.gif'))
-        message.channel.send("Ajout de User : "+arg1+' '+arg2+' ID='+arg3);
+
+        }).then(channel => channel.send({files: [file], embeds: [Salons]}))
+        const embedMessage = new MessageEmbed()
+            .setTitle('👨🏽‍🌾 Nouveau Employé 👨🏽‍🌾')
+            .setDescription(`Nom et Prénom : ${capitalizeFirstLetter(arg1)}\nSteam : ${arg2}\nID Dossier : ${arg3}`)
+            .setColor('#E67E22')
+            .setFooter({text:'© Brasserie'})
+            .setTimestamp();
+        message.channel.send({embeds: [embedMessage]});
         db.pool.getConnection(function(err, connection) {
             // Use the connection
             connection.query(`insert into employees(nomRp,nomSteam,nomDossier) values("${arg1}","${arg2}","${arg3+'-'+arg1}")`, function (error, results, fields) {
